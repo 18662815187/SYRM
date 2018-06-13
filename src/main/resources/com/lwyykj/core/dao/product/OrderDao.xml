@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.product.OrderDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.product.Order" >
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="brandName" property="brandname" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="factoryName" property="factoryname" jdbcType="VARCHAR" />
+    <result column="opstyle" property="opstyle" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="CHAR" />
+    <result column="addtime" property="addtime" jdbcType="INTEGER" />
+    <result column="doc_name" property="docName" jdbcType="CHAR" />
+    <result column="hos_name" property="hosName" jdbcType="VARCHAR" />
+    <result column="ph_id" property="phId" jdbcType="INTEGER" />
+    <result column="style" property="style" jdbcType="INTEGER" />
+    <result column="style2" property="style2" jdbcType="INTEGER" />
+    <result column="paytime" property="paytime" jdbcType="INTEGER" />
+    <result column="refund_state" property="refundState" jdbcType="INTEGER" />
+    <result column="buyerName" property="buyername" jdbcType="CHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      order_id, product_name, brandName, price, num, pic, factoryName, opstyle, order_num, 
+      addtime, doc_name, hos_name, ph_id, style, style2, paytime, refund_state, buyerName, 
+      tel, spec, pid
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.product.OrderQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_pharmacy_product_brand_hos_doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.product.OrderQuery" >
+    delete from order_pharmacy_product_brand_hos_doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.product.Order" >
+    insert into order_pharmacy_product_brand_hos_doc (order_id, product_name, brandName, 
+      price, num, pic, factoryName, 
+      opstyle, order_num, addtime, 
+      doc_name, hos_name, ph_id, 
+      style, style2, paytime, 
+      refund_state, buyerName, tel, 
+      spec, pid)
+    values (#{orderId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{brandname,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{num,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}, #{factoryname,jdbcType=VARCHAR}, 
+      #{opstyle,jdbcType=INTEGER}, #{orderNum,jdbcType=CHAR}, #{addtime,jdbcType=INTEGER}, 
+      #{docName,jdbcType=CHAR}, #{hosName,jdbcType=VARCHAR}, #{phId,jdbcType=INTEGER}, 
+      #{style,jdbcType=INTEGER}, #{style2,jdbcType=INTEGER}, #{paytime,jdbcType=INTEGER}, 
+      #{refundState,jdbcType=INTEGER}, #{buyername,jdbcType=CHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{spec,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.product.Order" >
+    insert into order_pharmacy_product_brand_hos_doc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="brandname != null" >
+        brandName,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="factoryname != null" >
+        factoryName,
+      </if>
+      <if test="opstyle != null" >
+        opstyle,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="docName != null" >
+        doc_name,
+      </if>
+      <if test="hosName != null" >
+        hos_name,
+      </if>
+      <if test="phId != null" >
+        ph_id,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="style2 != null" >
+        style2,
+      </if>
+      <if test="paytime != null" >
+        paytime,
+      </if>
+      <if test="refundState != null" >
+        refund_state,
+      </if>
+      <if test="buyername != null" >
+        buyerName,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandname != null" >
+        #{brandname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryname != null" >
+        #{factoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="opstyle != null" >
+        #{opstyle,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=CHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="docName != null" >
+        #{docName,jdbcType=CHAR},
+      </if>
+      <if test="hosName != null" >
+        #{hosName,jdbcType=VARCHAR},
+      </if>
+      <if test="phId != null" >
+        #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="style != null" >
+        #{style,jdbcType=INTEGER},
+      </if>
+      <if test="style2 != null" >
+        #{style2,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=INTEGER},
+      </if>
+      <if test="refundState != null" >
+        #{refundState,jdbcType=INTEGER},
+      </if>
+      <if test="buyername != null" >
+        #{buyername,jdbcType=CHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.product.OrderQuery" resultType="java.lang.Integer" >
+    select count(*) from order_pharmacy_product_brand_hos_doc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_pharmacy_product_brand_hos_doc
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandname != null" >
+        brandName = #{record.brandname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factoryname != null" >
+        factoryName = #{record.factoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opstyle != null" >
+        opstyle = #{record.opstyle,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=CHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.docName != null" >
+        doc_name = #{record.docName,jdbcType=CHAR},
+      </if>
+      <if test="record.hosName != null" >
+        hos_name = #{record.hosName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phId != null" >
+        ph_id = #{record.phId,jdbcType=INTEGER},
+      </if>
+      <if test="record.style != null" >
+        style = #{record.style,jdbcType=INTEGER},
+      </if>
+      <if test="record.style2 != null" >
+        style2 = #{record.style2,jdbcType=INTEGER},
+      </if>
+      <if test="record.paytime != null" >
+        paytime = #{record.paytime,jdbcType=INTEGER},
+      </if>
+      <if test="record.refundState != null" >
+        refund_state = #{record.refundState,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyername != null" >
+        buyerName = #{record.buyername,jdbcType=CHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spec != null" >
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_pharmacy_product_brand_hos_doc
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      brandName = #{record.brandname,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      num = #{record.num,jdbcType=INTEGER},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      factoryName = #{record.factoryname,jdbcType=VARCHAR},
+      opstyle = #{record.opstyle,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=CHAR},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      doc_name = #{record.docName,jdbcType=CHAR},
+      hos_name = #{record.hosName,jdbcType=VARCHAR},
+      ph_id = #{record.phId,jdbcType=INTEGER},
+      style = #{record.style,jdbcType=INTEGER},
+      style2 = #{record.style2,jdbcType=INTEGER},
+      paytime = #{record.paytime,jdbcType=INTEGER},
+      refund_state = #{record.refundState,jdbcType=INTEGER},
+      buyerName = #{record.buyername,jdbcType=CHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

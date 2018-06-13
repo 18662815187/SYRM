@@ -1,0 +1,95 @@
+			body{
+				background-color: #eff0f1;
+			}
+			.body{
+				padding: 40px;
+			}
+			.body table{
+				background-color: #fff;
+				border-bottom: 5px solid #b3b3b3;
+				border-top: 5px solid #b3b3b3;
+				margin: auto;
+			}
+			.body b{
+				color: #ff7e00;
+				font-size: 25px;
+			}
+			.tou{
+				position: absolute;
+				right: 0px;
+				float: right;
+				background-color: #b3b3b3;
+				color: #fff;
+				padding: 5px;
+				margin-right: 10px;
+			}
+			.payment{
+				margin: 10px;
+				padding: 10px;
+				border: 3px solid #fff;
+			}
+			.payment_w{
+				border: 3px solid #85a1d4;
+			}
+			.payment_other{
+				font-size: 13px;
+				border: 1px solid #b3b3b3;
+				width: 80px;
+				margin:5px 20px;
+				padding: 5px 15px;
+				color: #00AAEE;
+			}
+			.pay{
+				font-size: 16px;
+				margin: 20px;
+				padding:8px 18px;
+				background-color: #00aaee;
+				color: #fff;
+				border: 0px;
+				border-radius:5px ;
+			}
+			.recommend{
+				display: inline;
+				color: #fff;
+				background-color: #29ab91;
+				padding: 3px;
+				font-size: 12px;
+				margin-left:20px ;
+			}
+			.money{
+				float: right;
+				padding: 5px
+			}
+			.money b{
+				color: #FF7E00;
+				font-size: 20px;
+			}
+			.head{
+				background-color: #fff;
+				height: 50px;
+			}
+			.head_w{
+				padding:0 40px;
+			}
+			.head_w img{
+				float: left;
+			}
+			.head_w_text{
+				color: #666666;
+				padding:13px 0px;
+				float: left;
+				font-size: 18px;
+			}
+			.body_commodity{
+				font-size: 14px;
+				
+			}
+			.container {
+			 	display: flex;    /* 设置为 FlexBox 容器 */
+			}
+			.fle {
+			  	flex: 1 1 auto;  /* 子集平分 */
+			} 
+			.fle p{
+				font-size:14px ;
+			}

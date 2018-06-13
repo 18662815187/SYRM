@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.hps.WithDrawalsDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.hps.WithDrawals" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ph_id" property="phId" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="bankNum" property="banknum" jdbcType="VARCHAR" />
+    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="bankDeposit" property="bankdeposit" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, ph_id, tel, name, bankNum, bankName, bankDeposit, money, msg, addtime, is_del, 
+      is_show
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.hps.WithDrawalsQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_withdrawals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,ph_id,tel,name,bankNum,bankName,bankDeposit,money,msg,addtime,is_del,is_show
+    from mr_withdrawals
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_withdrawals
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.hps.WithDrawalsQuery" >
+    delete from mr_withdrawals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.hps.WithDrawals" >
+    insert into mr_withdrawals (id, ph_id, tel, 
+      name, bankNum, bankName, 
+      bankDeposit, money, msg, 
+      addtime, is_del, is_show
+      )
+    values (#{id,jdbcType=INTEGER}, #{phId,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{banknum,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
+      #{bankdeposit,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{msg,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=BIT}, #{isShow,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.hps.WithDrawals" >
+    insert into mr_withdrawals
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phId != null" >
+        ph_id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="banknum != null" >
+        bankNum,
+      </if>
+      <if test="bankname != null" >
+        bankName,
+      </if>
+      <if test="bankdeposit != null" >
+        bankDeposit,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phId != null" >
+        #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="banknum != null" >
+        #{banknum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankdeposit != null" >
+        #{bankdeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.hps.WithDrawalsQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_withdrawals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_withdrawals
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phId != null" >
+        ph_id = #{record.phId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banknum != null" >
+        bankNum = #{record.banknum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankname != null" >
+        bankName = #{record.bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankdeposit != null" >
+        bankDeposit = #{record.bankdeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=BIT},
+      </if>
+      <if test="record.isShow != null" >
+        is_show = #{record.isShow,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_withdrawals
+    set id = #{record.id,jdbcType=INTEGER},
+      ph_id = #{record.phId,jdbcType=INTEGER},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      bankNum = #{record.banknum,jdbcType=VARCHAR},
+      bankName = #{record.bankname,jdbcType=VARCHAR},
+      bankDeposit = #{record.bankdeposit,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      is_del = #{record.isDel,jdbcType=BIT},
+      is_show = #{record.isShow,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.hps.WithDrawals" >
+    update mr_withdrawals
+    <set >
+      <if test="phId != null" >
+        ph_id = #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="banknum != null" >
+        bankNum = #{banknum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankName = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankdeposit != null" >
+        bankDeposit = #{bankdeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.hps.WithDrawals" >
+    update mr_withdrawals
+    set ph_id = #{phId,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      bankNum = #{banknum,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      bankDeposit = #{bankdeposit,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      msg = #{msg,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

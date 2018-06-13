@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.shop.proBrandShopDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.shop.proBrandShop" >
+    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="sup_id" property="supId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="fac_name" property="facName" jdbcType="VARCHAR" />
+    <result column="fac_id" property="facId" jdbcType="INTEGER" />
+    <result column="sup_name" property="supName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="guiding_price" property="guidingPrice" jdbcType="DECIMAL" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      sku_id, pro_name, pro_id, sup_id, brand_name, fac_name, fac_id, sup_name, phone, 
+      spec, guiding_price, brand_id
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.shop.proBrandShopQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sku_pro_brand_fac_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.shop.proBrandShopQuery" >
+    delete from sku_pro_brand_fac_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.shop.proBrandShop" >
+    insert into sku_pro_brand_fac_shop (sku_id, pro_name, pro_id, 
+      sup_id, brand_name, fac_name, 
+      fac_id, sup_name, phone, 
+      spec, guiding_price, brand_id
+      )
+    values (#{skuId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR}, #{proId,jdbcType=INTEGER}, 
+      #{supId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{facName,jdbcType=VARCHAR}, 
+      #{facId,jdbcType=INTEGER}, #{supName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{spec,jdbcType=VARCHAR}, #{guidingPrice,jdbcType=DECIMAL}, #{brandId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.shop.proBrandShop" >
+    insert into sku_pro_brand_fac_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="proName != null" >
+        pro_name,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="supId != null" >
+        sup_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="facName != null" >
+        fac_name,
+      </if>
+      <if test="facId != null" >
+        fac_id,
+      </if>
+      <if test="supName != null" >
+        sup_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="guidingPrice != null" >
+        guiding_price,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="skuId != null" >
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="supId != null" >
+        #{supId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="facName != null" >
+        #{facName,jdbcType=VARCHAR},
+      </if>
+      <if test="facId != null" >
+        #{facId,jdbcType=INTEGER},
+      </if>
+      <if test="supName != null" >
+        #{supName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="guidingPrice != null" >
+        #{guidingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.shop.proBrandShopQuery" resultType="java.lang.Integer" >
+    select count(*) from sku_pro_brand_fac_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sku_pro_brand_fac_shop
+    <set >
+      <if test="record.skuId != null" >
+        sku_id = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proName != null" >
+        pro_name = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supId != null" >
+        sup_id = #{record.supId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facName != null" >
+        fac_name = #{record.facName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facId != null" >
+        fac_id = #{record.facId,jdbcType=INTEGER},
+      </if>
+      <if test="record.supName != null" >
+        sup_name = #{record.supName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spec != null" >
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidingPrice != null" >
+        guiding_price = #{record.guidingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.brandId != null" >
+        brand_id = #{record.brandId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sku_pro_brand_fac_shop
+    set sku_id = #{record.skuId,jdbcType=INTEGER},
+      pro_name = #{record.proName,jdbcType=VARCHAR},
+      pro_id = #{record.proId,jdbcType=INTEGER},
+      sup_id = #{record.supId,jdbcType=INTEGER},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      fac_name = #{record.facName,jdbcType=VARCHAR},
+      fac_id = #{record.facId,jdbcType=INTEGER},
+      sup_name = #{record.supName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      guiding_price = #{record.guidingPrice,jdbcType=DECIMAL},
+      brand_id = #{record.brandId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

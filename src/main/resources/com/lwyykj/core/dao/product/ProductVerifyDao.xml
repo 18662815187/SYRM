@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.product.ProductVerifyDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.product.ProductVerify" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ph_id" property="phId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="fac_id" property="facId" jdbcType="INTEGER" />
+    <result column="factory_name" property="factoryName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="astrict" property="astrict" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="activity_price" property="activityPrice" jdbcType="DECIMAL" />
+    <result column="is_gift" property="isGift" jdbcType="BIT" />
+    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="factory_id" property="factoryId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, ph_id, product_name, brand_name, pic, images, spec, fac_id, factory_name, content, 
+      stock, astrict, price, activity_price, is_gift, gift_id, is_del, is_show, brand_id, 
+      factory_id
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.product.ProductVerifyQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_product_verify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,ph_id,product_name,brand_name,pic,images,spec,fac_id,factory_name,content,stock,astrict,price,activity_price,is_gift,gift_id,is_del,is_show,brand_id,factory_id
+    from mr_product_verify
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_product_verify
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.product.ProductVerifyQuery" >
+    delete from mr_product_verify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.product.ProductVerify" >
+    insert into mr_product_verify (id, ph_id, product_name, 
+      brand_name, pic, images, 
+      spec, fac_id, factory_name, 
+      content, stock, astrict, 
+      price, activity_price, is_gift, 
+      gift_id, is_del, is_show, 
+      brand_id, factory_id)
+    values (#{id,jdbcType=INTEGER}, #{phId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{brandName,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, 
+      #{spec,jdbcType=VARCHAR}, #{facId,jdbcType=INTEGER}, #{factoryName,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{astrict,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{activityPrice,jdbcType=DECIMAL}, #{isGift,jdbcType=BIT}, 
+      #{giftId,jdbcType=INTEGER}, #{isDel,jdbcType=BIT}, #{isShow,jdbcType=INTEGER}, 
+      #{brandId,jdbcType=INTEGER}, #{factoryId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.product.ProductVerify" >
+    insert into mr_product_verify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phId != null" >
+        ph_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="facId != null" >
+        fac_id,
+      </if>
+      <if test="factoryName != null" >
+        factory_name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="astrict != null" >
+        astrict,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="activityPrice != null" >
+        activity_price,
+      </if>
+      <if test="isGift != null" >
+        is_gift,
+      </if>
+      <if test="giftId != null" >
+        gift_id,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="factoryId != null" >
+        factory_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phId != null" >
+        #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="facId != null" >
+        #{facId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryName != null" >
+        #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="astrict != null" >
+        #{astrict,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPrice != null" >
+        #{activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        #{isGift,jdbcType=BIT},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryId != null" >
+        #{factoryId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.product.ProductVerifyQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_product_verify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_product_verify
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phId != null" >
+        ph_id = #{record.phId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spec != null" >
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facId != null" >
+        fac_id = #{record.facId,jdbcType=INTEGER},
+      </if>
+      <if test="record.factoryName != null" >
+        factory_name = #{record.factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.astrict != null" >
+        astrict = #{record.astrict,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.activityPrice != null" >
+        activity_price = #{record.activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isGift != null" >
+        is_gift = #{record.isGift,jdbcType=BIT},
+      </if>
+      <if test="record.giftId != null" >
+        gift_id = #{record.giftId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=BIT},
+      </if>
+      <if test="record.isShow != null" >
+        is_show = #{record.isShow,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandId != null" >
+        brand_id = #{record.brandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.factoryId != null" >
+        factory_id = #{record.factoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_product_verify
+    set id = #{record.id,jdbcType=INTEGER},
+      ph_id = #{record.phId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      fac_id = #{record.facId,jdbcType=INTEGER},
+      factory_name = #{record.factoryName,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      stock = #{record.stock,jdbcType=INTEGER},
+      astrict = #{record.astrict,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      activity_price = #{record.activityPrice,jdbcType=DECIMAL},
+      is_gift = #{record.isGift,jdbcType=BIT},
+      gift_id = #{record.giftId,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=BIT},
+      is_show = #{record.isShow,jdbcType=INTEGER},
+      brand_id = #{record.brandId,jdbcType=INTEGER},
+      factory_id = #{record.factoryId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.product.ProductVerify" >
+    update mr_product_verify
+    <set >
+      <if test="phId != null" >
+        ph_id = #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="facId != null" >
+        fac_id = #{facId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryName != null" >
+        factory_name = #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="astrict != null" >
+        astrict = #{astrict,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPrice != null" >
+        activity_price = #{activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        is_gift = #{isGift,jdbcType=BIT},
+      </if>
+      <if test="giftId != null" >
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="factoryId != null" >
+        factory_id = #{factoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.product.ProductVerify" >
+    update mr_product_verify
+    set ph_id = #{phId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      fac_id = #{facId,jdbcType=INTEGER},
+      factory_name = #{factoryName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      astrict = #{astrict,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      activity_price = #{activityPrice,jdbcType=DECIMAL},
+      is_gift = #{isGift,jdbcType=BIT},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      factory_id = #{factoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

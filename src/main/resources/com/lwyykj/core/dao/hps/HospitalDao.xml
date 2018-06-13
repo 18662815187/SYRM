@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.hps.HospitalDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.hps.Hospital" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user" property="user" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="CHAR" />
+    <result column="pass" property="pass" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="isshow" property="isshow" jdbcType="INTEGER" />
+    <result column="discription" property="discription" jdbcType="VARCHAR" />
+    <result column="position_x" property="positionX" jdbcType="DECIMAL" />
+    <result column="position_y" property="positionY" jdbcType="DECIMAL" />
+    <result column="qrcode" property="qrcode" jdbcType="CHAR" />
+    <result column="pcode" property="pcode" jdbcType="CHAR" />
+    <result column="ccode" property="ccode" jdbcType="CHAR" />
+    <result column="acode" property="acode" jdbcType="CHAR" />
+    <result column="license" property="license" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, user, picture, pass, phone, address, money, isshow, discription, position_x, 
+      position_y, qrcode, pcode, ccode, acode, license, certificate
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.hps.HospitalQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,user,picture,pass,phone,address,money,isshow,discription,position_x,position_y,qrcode,pcode,ccode,acode,license,certificate
+    from mr_hospital
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_hospital
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.hps.HospitalQuery" >
+    delete from mr_hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.hps.Hospital" >
+    insert into mr_hospital (id, user, picture, 
+      pass, phone, address, 
+      money, isshow, discription, 
+      position_x, position_y, qrcode, 
+      pcode, ccode, acode, license, 
+      certificate)
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=VARCHAR}, #{picture,jdbcType=CHAR}, 
+      #{pass,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DECIMAL}, #{isshow,jdbcType=INTEGER}, #{discription,jdbcType=VARCHAR}, 
+      #{positionX,jdbcType=DECIMAL}, #{positionY,jdbcType=DECIMAL}, #{qrcode,jdbcType=CHAR}, 
+      #{pcode,jdbcType=CHAR}, #{ccode,jdbcType=CHAR}, #{acode,jdbcType=CHAR}, #{license,jdbcType=VARCHAR}, 
+      #{certificate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.hps.Hospital" >
+    insert into mr_hospital
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="isshow != null" >
+        isshow,
+      </if>
+      <if test="discription != null" >
+        discription,
+      </if>
+      <if test="positionX != null" >
+        position_x,
+      </if>
+      <if test="positionY != null" >
+        position_y,
+      </if>
+      <if test="qrcode != null" >
+        qrcode,
+      </if>
+      <if test="pcode != null" >
+        pcode,
+      </if>
+      <if test="ccode != null" >
+        ccode,
+      </if>
+      <if test="acode != null" >
+        acode,
+      </if>
+      <if test="license != null" >
+        license,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=CHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="discription != null" >
+        #{discription,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        #{positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="positionY != null" >
+        #{positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="qrcode != null" >
+        #{qrcode,jdbcType=CHAR},
+      </if>
+      <if test="pcode != null" >
+        #{pcode,jdbcType=CHAR},
+      </if>
+      <if test="ccode != null" >
+        #{ccode,jdbcType=CHAR},
+      </if>
+      <if test="acode != null" >
+        #{acode,jdbcType=CHAR},
+      </if>
+      <if test="license != null" >
+        #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.hps.HospitalQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_hospital
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_hospital
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.user != null" >
+        user = #{record.user,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=CHAR},
+      </if>
+      <if test="record.pass != null" >
+        pass = #{record.pass,jdbcType=CHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isshow != null" >
+        isshow = #{record.isshow,jdbcType=INTEGER},
+      </if>
+      <if test="record.discription != null" >
+        discription = #{record.discription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionX != null" >
+        position_x = #{record.positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="record.positionY != null" >
+        position_y = #{record.positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="record.qrcode != null" >
+        qrcode = #{record.qrcode,jdbcType=CHAR},
+      </if>
+      <if test="record.pcode != null" >
+        pcode = #{record.pcode,jdbcType=CHAR},
+      </if>
+      <if test="record.ccode != null" >
+        ccode = #{record.ccode,jdbcType=CHAR},
+      </if>
+      <if test="record.acode != null" >
+        acode = #{record.acode,jdbcType=CHAR},
+      </if>
+      <if test="record.license != null" >
+        license = #{record.license,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificate != null" >
+        certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_hospital
+    set id = #{record.id,jdbcType=INTEGER},
+      user = #{record.user,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=CHAR},
+      pass = #{record.pass,jdbcType=CHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      isshow = #{record.isshow,jdbcType=INTEGER},
+      discription = #{record.discription,jdbcType=VARCHAR},
+      position_x = #{record.positionX,jdbcType=DECIMAL},
+      position_y = #{record.positionY,jdbcType=DECIMAL},
+      qrcode = #{record.qrcode,jdbcType=CHAR},
+      pcode = #{record.pcode,jdbcType=CHAR},
+      ccode = #{record.ccode,jdbcType=CHAR},
+      acode = #{record.acode,jdbcType=CHAR},
+      license = #{record.license,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.hps.Hospital" >
+    update mr_hospital
+    <set >
+      <if test="user != null" >
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=CHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="isshow != null" >
+        isshow = #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="discription != null" >
+        discription = #{discription,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        position_x = #{positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="positionY != null" >
+        position_y = #{positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="qrcode != null" >
+        qrcode = #{qrcode,jdbcType=CHAR},
+      </if>
+      <if test="pcode != null" >
+        pcode = #{pcode,jdbcType=CHAR},
+      </if>
+      <if test="ccode != null" >
+        ccode = #{ccode,jdbcType=CHAR},
+      </if>
+      <if test="acode != null" >
+        acode = #{acode,jdbcType=CHAR},
+      </if>
+      <if test="license != null" >
+        license = #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.hps.Hospital" >
+    update mr_hospital
+    set user = #{user,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=CHAR},
+      pass = #{pass,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      isshow = #{isshow,jdbcType=INTEGER},
+      discription = #{discription,jdbcType=VARCHAR},
+      position_x = #{positionX,jdbcType=DECIMAL},
+      position_y = #{positionY,jdbcType=DECIMAL},
+      qrcode = #{qrcode,jdbcType=CHAR},
+      pcode = #{pcode,jdbcType=CHAR},
+      ccode = #{ccode,jdbcType=CHAR},
+      acode = #{acode,jdbcType=CHAR},
+      license = #{license,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

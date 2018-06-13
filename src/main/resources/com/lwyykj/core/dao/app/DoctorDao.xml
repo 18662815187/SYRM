@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.app.DoctorDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.app.Doctor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user" property="user" jdbcType="CHAR" />
+    <result column="pic" property="pic" jdbcType="CHAR" />
+    <result column="practice_id" property="practiceId" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="position_x" property="positionX" jdbcType="DECIMAL" />
+    <result column="sex" property="sex" jdbcType="BIT" />
+    <result column="begoodat" property="begoodat" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="REAL" />
+    <result column="regtime" property="regtime" jdbcType="INTEGER" />
+    <result column="position_y" property="positionY" jdbcType="DECIMAL" />
+    <result column="hos_id" property="hosId" jdbcType="INTEGER" />
+    <result column="price1" property="price1" jdbcType="REAL" />
+    <result column="price2" property="price2" jdbcType="REAL" />
+    <result column="price3" property="price3" jdbcType="REAL" />
+    <result column="price4" property="price4" jdbcType="REAL" />
+    <result column="price5" property="price5" jdbcType="REAL" />
+    <result column="service_time" property="serviceTime" jdbcType="VARCHAR" />
+    <result column="isonline" property="isonline" jdbcType="INTEGER" />
+    <result column="isshow" property="isshow" jdbcType="INTEGER" />
+    <result column="famous" property="famous" jdbcType="INTEGER" />
+    <result column="beautiful" property="beautiful" jdbcType="INTEGER" />
+    <result column="condition2" property="condition2" jdbcType="BIT" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="TK" property="tk" jdbcType="VARCHAR" />
+    <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="appraise" property="appraise" jdbcType="REAL" />
+    <result column="pcode" property="pcode" jdbcType="CHAR" />
+    <result column="ccode" property="ccode" jdbcType="CHAR" />
+    <result column="acode" property="acode" jdbcType="CHAR" />
+    <result column="IDcardpic" property="idcardpic" jdbcType="CHAR" />
+    <result column="yishizigepic" property="yishizigepic" jdbcType="CHAR" />
+    <result column="zhiyezigepic" property="zhiyezigepic" jdbcType="CHAR" />
+    <result column="workcardpic" property="workcardpic" jdbcType="CHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="hx_login" property="hxLogin" jdbcType="CHAR" />
+    <result column="mark1" property="mark1" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="INTEGER" />
+    <result column="test_user" property="testUser" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="code_time" property="codeTime" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="hospital" property="hospital" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lwyykj.core.bean.app.Doctor" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, user, pic, practice_id, pass, email, phone, address, position_x, sex, begoodat, 
+      money, regtime, position_y, hos_id, price1, price2, price3, price4, price5, service_time, 
+      isonline, isshow, famous, beautiful, condition2, position, TK, qrcode, appraise, 
+      pcode, ccode, acode, IDcardpic, yishizigepic, zhiyezigepic, workcardpic, age, hx_login, 
+      mark1, addtime, test_user, openid, code_time, code, hospital
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.lwyykj.core.bean.app.DoctorQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mr_doctors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.app.DoctorQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_doctors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    id,user,pic,practice_id,pass,email,phone,address,position_x,sex,begoodat,money,regtime,position_y,hos_id,price1,price2,price3,price4,price5,service_time,isonline,isshow,famous,beautiful,condition2,position,TK,qrcode,appraise,pcode,ccode,acode,IDcardpic,yishizigepic,zhiyezigepic,workcardpic,age,hx_login,mark1,addtime,test_user,openid,code_time,code,hospital,description
+    ,
+    <include refid="Blob_Column_List" />
+    from mr_doctors
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_doctors
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.app.DoctorQuery" >
+    delete from mr_doctors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.app.Doctor" >
+    insert into mr_doctors (id, user, pic, practice_id, 
+      pass, email, phone, address, 
+      position_x, sex, begoodat, 
+      money, regtime, position_y, 
+      hos_id, price1, price2, price3, 
+      price4, price5, service_time, 
+      isonline, isshow, famous, 
+      beautiful, condition2, position, 
+      TK, qrcode, appraise, 
+      pcode, ccode, acode, IDcardpic, 
+      yishizigepic, zhiyezigepic, workcardpic, 
+      age, hx_login, mark1, addtime, 
+      test_user, openid, code_time, 
+      code, hospital, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=CHAR}, #{pic,jdbcType=CHAR}, #{practiceId,jdbcType=VARCHAR}, 
+      #{pass,jdbcType=VARCHAR}, #{email,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{positionX,jdbcType=DECIMAL}, #{sex,jdbcType=BIT}, #{begoodat,jdbcType=VARCHAR}, 
+      #{money,jdbcType=REAL}, #{regtime,jdbcType=INTEGER}, #{positionY,jdbcType=DECIMAL}, 
+      #{hosId,jdbcType=INTEGER}, #{price1,jdbcType=REAL}, #{price2,jdbcType=REAL}, #{price3,jdbcType=REAL}, 
+      #{price4,jdbcType=REAL}, #{price5,jdbcType=REAL}, #{serviceTime,jdbcType=VARCHAR}, 
+      #{isonline,jdbcType=INTEGER}, #{isshow,jdbcType=INTEGER}, #{famous,jdbcType=INTEGER}, 
+      #{beautiful,jdbcType=INTEGER}, #{condition2,jdbcType=BIT}, #{position,jdbcType=VARCHAR}, 
+      #{tk,jdbcType=VARCHAR}, #{qrcode,jdbcType=VARCHAR}, #{appraise,jdbcType=REAL}, 
+      #{pcode,jdbcType=CHAR}, #{ccode,jdbcType=CHAR}, #{acode,jdbcType=CHAR}, #{idcardpic,jdbcType=CHAR}, 
+      #{yishizigepic,jdbcType=CHAR}, #{zhiyezigepic,jdbcType=CHAR}, #{workcardpic,jdbcType=CHAR}, 
+      #{age,jdbcType=INTEGER}, #{hxLogin,jdbcType=CHAR}, #{mark1,jdbcType=INTEGER}, #{addtime,jdbcType=INTEGER}, 
+      #{testUser,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{codeTime,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{hospital,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.app.Doctor" >
+    insert into mr_doctors
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="practiceId != null" >
+        practice_id,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="positionX != null" >
+        position_x,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="begoodat != null" >
+        begoodat,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="regtime != null" >
+        regtime,
+      </if>
+      <if test="positionY != null" >
+        position_y,
+      </if>
+      <if test="hosId != null" >
+        hos_id,
+      </if>
+      <if test="price1 != null" >
+        price1,
+      </if>
+      <if test="price2 != null" >
+        price2,
+      </if>
+      <if test="price3 != null" >
+        price3,
+      </if>
+      <if test="price4 != null" >
+        price4,
+      </if>
+      <if test="price5 != null" >
+        price5,
+      </if>
+      <if test="serviceTime != null" >
+        service_time,
+      </if>
+      <if test="isonline != null" >
+        isonline,
+      </if>
+      <if test="isshow != null" >
+        isshow,
+      </if>
+      <if test="famous != null" >
+        famous,
+      </if>
+      <if test="beautiful != null" >
+        beautiful,
+      </if>
+      <if test="condition2 != null" >
+        condition2,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="tk != null" >
+        TK,
+      </if>
+      <if test="qrcode != null" >
+        qrcode,
+      </if>
+      <if test="appraise != null" >
+        appraise,
+      </if>
+      <if test="pcode != null" >
+        pcode,
+      </if>
+      <if test="ccode != null" >
+        ccode,
+      </if>
+      <if test="acode != null" >
+        acode,
+      </if>
+      <if test="idcardpic != null" >
+        IDcardpic,
+      </if>
+      <if test="yishizigepic != null" >
+        yishizigepic,
+      </if>
+      <if test="zhiyezigepic != null" >
+        zhiyezigepic,
+      </if>
+      <if test="workcardpic != null" >
+        workcardpic,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="hxLogin != null" >
+        hx_login,
+      </if>
+      <if test="mark1 != null" >
+        mark1,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="testUser != null" >
+        test_user,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="codeTime != null" >
+        code_time,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="hospital != null" >
+        hospital,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=CHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=CHAR},
+      </if>
+      <if test="practiceId != null" >
+        #{practiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        #{positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="begoodat != null" >
+        #{begoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=INTEGER},
+      </if>
+      <if test="positionY != null" >
+        #{positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="hosId != null" >
+        #{hosId,jdbcType=INTEGER},
+      </if>
+      <if test="price1 != null" >
+        #{price1,jdbcType=REAL},
+      </if>
+      <if test="price2 != null" >
+        #{price2,jdbcType=REAL},
+      </if>
+      <if test="price3 != null" >
+        #{price3,jdbcType=REAL},
+      </if>
+      <if test="price4 != null" >
+        #{price4,jdbcType=REAL},
+      </if>
+      <if test="price5 != null" >
+        #{price5,jdbcType=REAL},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isonline != null" >
+        #{isonline,jdbcType=INTEGER},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="famous != null" >
+        #{famous,jdbcType=INTEGER},
+      </if>
+      <if test="beautiful != null" >
+        #{beautiful,jdbcType=INTEGER},
+      </if>
+      <if test="condition2 != null" >
+        #{condition2,jdbcType=BIT},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="tk != null" >
+        #{tk,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="appraise != null" >
+        #{appraise,jdbcType=REAL},
+      </if>
+      <if test="pcode != null" >
+        #{pcode,jdbcType=CHAR},
+      </if>
+      <if test="ccode != null" >
+        #{ccode,jdbcType=CHAR},
+      </if>
+      <if test="acode != null" >
+        #{acode,jdbcType=CHAR},
+      </if>
+      <if test="idcardpic != null" >
+        #{idcardpic,jdbcType=CHAR},
+      </if>
+      <if test="yishizigepic != null" >
+        #{yishizigepic,jdbcType=CHAR},
+      </if>
+      <if test="zhiyezigepic != null" >
+        #{zhiyezigepic,jdbcType=CHAR},
+      </if>
+      <if test="workcardpic != null" >
+        #{workcardpic,jdbcType=CHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="hxLogin != null" >
+        #{hxLogin,jdbcType=CHAR},
+      </if>
+      <if test="mark1 != null" >
+        #{mark1,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="testUser != null" >
+        #{testUser,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="codeTime != null" >
+        #{codeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="hospital != null" >
+        #{hospital,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.app.DoctorQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_doctors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_doctors
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.user != null" >
+        user = #{record.user,jdbcType=CHAR},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=CHAR},
+      </if>
+      <if test="record.practiceId != null" >
+        practice_id = #{record.practiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pass != null" >
+        pass = #{record.pass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=CHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionX != null" >
+        position_x = #{record.positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=BIT},
+      </if>
+      <if test="record.begoodat != null" >
+        begoodat = #{record.begoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=REAL},
+      </if>
+      <if test="record.regtime != null" >
+        regtime = #{record.regtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.positionY != null" >
+        position_y = #{record.positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hosId != null" >
+        hos_id = #{record.hosId,jdbcType=INTEGER},
+      </if>
+      <if test="record.price1 != null" >
+        price1 = #{record.price1,jdbcType=REAL},
+      </if>
+      <if test="record.price2 != null" >
+        price2 = #{record.price2,jdbcType=REAL},
+      </if>
+      <if test="record.price3 != null" >
+        price3 = #{record.price3,jdbcType=REAL},
+      </if>
+      <if test="record.price4 != null" >
+        price4 = #{record.price4,jdbcType=REAL},
+      </if>
+      <if test="record.price5 != null" >
+        price5 = #{record.price5,jdbcType=REAL},
+      </if>
+      <if test="record.serviceTime != null" >
+        service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isonline != null" >
+        isonline = #{record.isonline,jdbcType=INTEGER},
+      </if>
+      <if test="record.isshow != null" >
+        isshow = #{record.isshow,jdbcType=INTEGER},
+      </if>
+      <if test="record.famous != null" >
+        famous = #{record.famous,jdbcType=INTEGER},
+      </if>
+      <if test="record.beautiful != null" >
+        beautiful = #{record.beautiful,jdbcType=INTEGER},
+      </if>
+      <if test="record.condition2 != null" >
+        condition2 = #{record.condition2,jdbcType=BIT},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tk != null" >
+        TK = #{record.tk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrcode != null" >
+        qrcode = #{record.qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appraise != null" >
+        appraise = #{record.appraise,jdbcType=REAL},
+      </if>
+      <if test="record.pcode != null" >
+        pcode = #{record.pcode,jdbcType=CHAR},
+      </if>
+      <if test="record.ccode != null" >
+        ccode = #{record.ccode,jdbcType=CHAR},
+      </if>
+      <if test="record.acode != null" >
+        acode = #{record.acode,jdbcType=CHAR},
+      </if>
+      <if test="record.idcardpic != null" >
+        IDcardpic = #{record.idcardpic,jdbcType=CHAR},
+      </if>
+      <if test="record.yishizigepic != null" >
+        yishizigepic = #{record.yishizigepic,jdbcType=CHAR},
+      </if>
+      <if test="record.zhiyezigepic != null" >
+        zhiyezigepic = #{record.zhiyezigepic,jdbcType=CHAR},
+      </if>
+      <if test="record.workcardpic != null" >
+        workcardpic = #{record.workcardpic,jdbcType=CHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.hxLogin != null" >
+        hx_login = #{record.hxLogin,jdbcType=CHAR},
+      </if>
+      <if test="record.mark1 != null" >
+        mark1 = #{record.mark1,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.testUser != null" >
+        test_user = #{record.testUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeTime != null" >
+        code_time = #{record.codeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hospital != null" >
+        hospital = #{record.hospital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update mr_doctors
+    set id = #{record.id,jdbcType=INTEGER},
+      user = #{record.user,jdbcType=CHAR},
+      pic = #{record.pic,jdbcType=CHAR},
+      practice_id = #{record.practiceId,jdbcType=VARCHAR},
+      pass = #{record.pass,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=CHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      position_x = #{record.positionX,jdbcType=DECIMAL},
+      sex = #{record.sex,jdbcType=BIT},
+      begoodat = #{record.begoodat,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=REAL},
+      regtime = #{record.regtime,jdbcType=INTEGER},
+      position_y = #{record.positionY,jdbcType=DECIMAL},
+      hos_id = #{record.hosId,jdbcType=INTEGER},
+      price1 = #{record.price1,jdbcType=REAL},
+      price2 = #{record.price2,jdbcType=REAL},
+      price3 = #{record.price3,jdbcType=REAL},
+      price4 = #{record.price4,jdbcType=REAL},
+      price5 = #{record.price5,jdbcType=REAL},
+      service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      isonline = #{record.isonline,jdbcType=INTEGER},
+      isshow = #{record.isshow,jdbcType=INTEGER},
+      famous = #{record.famous,jdbcType=INTEGER},
+      beautiful = #{record.beautiful,jdbcType=INTEGER},
+      condition2 = #{record.condition2,jdbcType=BIT},
+      position = #{record.position,jdbcType=VARCHAR},
+      TK = #{record.tk,jdbcType=VARCHAR},
+      qrcode = #{record.qrcode,jdbcType=VARCHAR},
+      appraise = #{record.appraise,jdbcType=REAL},
+      pcode = #{record.pcode,jdbcType=CHAR},
+      ccode = #{record.ccode,jdbcType=CHAR},
+      acode = #{record.acode,jdbcType=CHAR},
+      IDcardpic = #{record.idcardpic,jdbcType=CHAR},
+      yishizigepic = #{record.yishizigepic,jdbcType=CHAR},
+      zhiyezigepic = #{record.zhiyezigepic,jdbcType=CHAR},
+      workcardpic = #{record.workcardpic,jdbcType=CHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      hx_login = #{record.hxLogin,jdbcType=CHAR},
+      mark1 = #{record.mark1,jdbcType=INTEGER},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      test_user = #{record.testUser,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      code_time = #{record.codeTime,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      hospital = #{record.hospital,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_doctors
+    set id = #{record.id,jdbcType=INTEGER},
+      user = #{record.user,jdbcType=CHAR},
+      pic = #{record.pic,jdbcType=CHAR},
+      practice_id = #{record.practiceId,jdbcType=VARCHAR},
+      pass = #{record.pass,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=CHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      position_x = #{record.positionX,jdbcType=DECIMAL},
+      sex = #{record.sex,jdbcType=BIT},
+      begoodat = #{record.begoodat,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=REAL},
+      regtime = #{record.regtime,jdbcType=INTEGER},
+      position_y = #{record.positionY,jdbcType=DECIMAL},
+      hos_id = #{record.hosId,jdbcType=INTEGER},
+      price1 = #{record.price1,jdbcType=REAL},
+      price2 = #{record.price2,jdbcType=REAL},
+      price3 = #{record.price3,jdbcType=REAL},
+      price4 = #{record.price4,jdbcType=REAL},
+      price5 = #{record.price5,jdbcType=REAL},
+      service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      isonline = #{record.isonline,jdbcType=INTEGER},
+      isshow = #{record.isshow,jdbcType=INTEGER},
+      famous = #{record.famous,jdbcType=INTEGER},
+      beautiful = #{record.beautiful,jdbcType=INTEGER},
+      condition2 = #{record.condition2,jdbcType=BIT},
+      position = #{record.position,jdbcType=VARCHAR},
+      TK = #{record.tk,jdbcType=VARCHAR},
+      qrcode = #{record.qrcode,jdbcType=VARCHAR},
+      appraise = #{record.appraise,jdbcType=REAL},
+      pcode = #{record.pcode,jdbcType=CHAR},
+      ccode = #{record.ccode,jdbcType=CHAR},
+      acode = #{record.acode,jdbcType=CHAR},
+      IDcardpic = #{record.idcardpic,jdbcType=CHAR},
+      yishizigepic = #{record.yishizigepic,jdbcType=CHAR},
+      zhiyezigepic = #{record.zhiyezigepic,jdbcType=CHAR},
+      workcardpic = #{record.workcardpic,jdbcType=CHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      hx_login = #{record.hxLogin,jdbcType=CHAR},
+      mark1 = #{record.mark1,jdbcType=INTEGER},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      test_user = #{record.testUser,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      code_time = #{record.codeTime,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      hospital = #{record.hospital,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.app.Doctor" >
+    update mr_doctors
+    <set >
+      <if test="user != null" >
+        user = #{user,jdbcType=CHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=CHAR},
+      </if>
+      <if test="practiceId != null" >
+        practice_id = #{practiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        position_x = #{positionX,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="begoodat != null" >
+        begoodat = #{begoodat,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=REAL},
+      </if>
+      <if test="regtime != null" >
+        regtime = #{regtime,jdbcType=INTEGER},
+      </if>
+      <if test="positionY != null" >
+        position_y = #{positionY,jdbcType=DECIMAL},
+      </if>
+      <if test="hosId != null" >
+        hos_id = #{hosId,jdbcType=INTEGER},
+      </if>
+      <if test="price1 != null" >
+        price1 = #{price1,jdbcType=REAL},
+      </if>
+      <if test="price2 != null" >
+        price2 = #{price2,jdbcType=REAL},
+      </if>
+      <if test="price3 != null" >
+        price3 = #{price3,jdbcType=REAL},
+      </if>
+      <if test="price4 != null" >
+        price4 = #{price4,jdbcType=REAL},
+      </if>
+      <if test="price5 != null" >
+        price5 = #{price5,jdbcType=REAL},
+      </if>
+      <if test="serviceTime != null" >
+        service_time = #{serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isonline != null" >
+        isonline = #{isonline,jdbcType=INTEGER},
+      </if>
+      <if test="isshow != null" >
+        isshow = #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="famous != null" >
+        famous = #{famous,jdbcType=INTEGER},
+      </if>
+      <if test="beautiful != null" >
+        beautiful = #{beautiful,jdbcType=INTEGER},
+      </if>
+      <if test="condition2 != null" >
+        condition2 = #{condition2,jdbcType=BIT},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="tk != null" >
+        TK = #{tk,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        qrcode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="appraise != null" >
+        appraise = #{appraise,jdbcType=REAL},
+      </if>
+      <if test="pcode != null" >
+        pcode = #{pcode,jdbcType=CHAR},
+      </if>
+      <if test="ccode != null" >
+        ccode = #{ccode,jdbcType=CHAR},
+      </if>
+      <if test="acode != null" >
+        acode = #{acode,jdbcType=CHAR},
+      </if>
+      <if test="idcardpic != null" >
+        IDcardpic = #{idcardpic,jdbcType=CHAR},
+      </if>
+      <if test="yishizigepic != null" >
+        yishizigepic = #{yishizigepic,jdbcType=CHAR},
+      </if>
+      <if test="zhiyezigepic != null" >
+        zhiyezigepic = #{zhiyezigepic,jdbcType=CHAR},
+      </if>
+      <if test="workcardpic != null" >
+        workcardpic = #{workcardpic,jdbcType=CHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="hxLogin != null" >
+        hx_login = #{hxLogin,jdbcType=CHAR},
+      </if>
+      <if test="mark1 != null" >
+        mark1 = #{mark1,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="testUser != null" >
+        test_user = #{testUser,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="codeTime != null" >
+        code_time = #{codeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="hospital != null" >
+        hospital = #{hospital,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lwyykj.core.bean.app.Doctor" >
+    update mr_doctors
+    set user = #{user,jdbcType=CHAR},
+      pic = #{pic,jdbcType=CHAR},
+      practice_id = #{practiceId,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      email = #{email,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      position_x = #{positionX,jdbcType=DECIMAL},
+      sex = #{sex,jdbcType=BIT},
+      begoodat = #{begoodat,jdbcType=VARCHAR},
+      money = #{money,jdbcType=REAL},
+      regtime = #{regtime,jdbcType=INTEGER},
+      position_y = #{positionY,jdbcType=DECIMAL},
+      hos_id = #{hosId,jdbcType=INTEGER},
+      price1 = #{price1,jdbcType=REAL},
+      price2 = #{price2,jdbcType=REAL},
+      price3 = #{price3,jdbcType=REAL},
+      price4 = #{price4,jdbcType=REAL},
+      price5 = #{price5,jdbcType=REAL},
+      service_time = #{serviceTime,jdbcType=VARCHAR},
+      isonline = #{isonline,jdbcType=INTEGER},
+      isshow = #{isshow,jdbcType=INTEGER},
+      famous = #{famous,jdbcType=INTEGER},
+      beautiful = #{beautiful,jdbcType=INTEGER},
+      condition2 = #{condition2,jdbcType=BIT},
+      position = #{position,jdbcType=VARCHAR},
+      TK = #{tk,jdbcType=VARCHAR},
+      qrcode = #{qrcode,jdbcType=VARCHAR},
+      appraise = #{appraise,jdbcType=REAL},
+      pcode = #{pcode,jdbcType=CHAR},
+      ccode = #{ccode,jdbcType=CHAR},
+      acode = #{acode,jdbcType=CHAR},
+      IDcardpic = #{idcardpic,jdbcType=CHAR},
+      yishizigepic = #{yishizigepic,jdbcType=CHAR},
+      zhiyezigepic = #{zhiyezigepic,jdbcType=CHAR},
+      workcardpic = #{workcardpic,jdbcType=CHAR},
+      age = #{age,jdbcType=INTEGER},
+      hx_login = #{hxLogin,jdbcType=CHAR},
+      mark1 = #{mark1,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=INTEGER},
+      test_user = #{testUser,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      code_time = #{codeTime,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      hospital = #{hospital,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.app.Doctor" >
+    update mr_doctors
+    set user = #{user,jdbcType=CHAR},
+      pic = #{pic,jdbcType=CHAR},
+      practice_id = #{practiceId,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      email = #{email,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      position_x = #{positionX,jdbcType=DECIMAL},
+      sex = #{sex,jdbcType=BIT},
+      begoodat = #{begoodat,jdbcType=VARCHAR},
+      money = #{money,jdbcType=REAL},
+      regtime = #{regtime,jdbcType=INTEGER},
+      position_y = #{positionY,jdbcType=DECIMAL},
+      hos_id = #{hosId,jdbcType=INTEGER},
+      price1 = #{price1,jdbcType=REAL},
+      price2 = #{price2,jdbcType=REAL},
+      price3 = #{price3,jdbcType=REAL},
+      price4 = #{price4,jdbcType=REAL},
+      price5 = #{price5,jdbcType=REAL},
+      service_time = #{serviceTime,jdbcType=VARCHAR},
+      isonline = #{isonline,jdbcType=INTEGER},
+      isshow = #{isshow,jdbcType=INTEGER},
+      famous = #{famous,jdbcType=INTEGER},
+      beautiful = #{beautiful,jdbcType=INTEGER},
+      condition2 = #{condition2,jdbcType=BIT},
+      position = #{position,jdbcType=VARCHAR},
+      TK = #{tk,jdbcType=VARCHAR},
+      qrcode = #{qrcode,jdbcType=VARCHAR},
+      appraise = #{appraise,jdbcType=REAL},
+      pcode = #{pcode,jdbcType=CHAR},
+      ccode = #{ccode,jdbcType=CHAR},
+      acode = #{acode,jdbcType=CHAR},
+      IDcardpic = #{idcardpic,jdbcType=CHAR},
+      yishizigepic = #{yishizigepic,jdbcType=CHAR},
+      zhiyezigepic = #{zhiyezigepic,jdbcType=CHAR},
+      workcardpic = #{workcardpic,jdbcType=CHAR},
+      age = #{age,jdbcType=INTEGER},
+      hx_login = #{hxLogin,jdbcType=CHAR},
+      mark1 = #{mark1,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=INTEGER},
+      test_user = #{testUser,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      code_time = #{codeTime,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      hospital = #{hospital,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

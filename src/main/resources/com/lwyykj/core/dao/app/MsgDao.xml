@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.app.MsgDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.app.Msg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="msg_id" property="msgId" jdbcType="INTEGER" />
+    <result column="up_id" property="upId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="readerid" property="readerid" jdbcType="INTEGER" />
+    <result column="isread" property="isread" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="INTEGER" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="readio" property="readio" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, msg_id, up_id, content, style, uid, doc_id, readerid, isread, addtime, pic, readio
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.app.MsgQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_u_d_msg_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,msg_id,up_id,content,style,uid,doc_id,readerid,isread,addtime,pic,readio
+    from mr_u_d_msg_ref
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_u_d_msg_ref
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.app.MsgQuery" >
+    delete from mr_u_d_msg_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.app.Msg" >
+    insert into mr_u_d_msg_ref (id, msg_id, up_id, 
+      content, style, uid, 
+      doc_id, readerid, isread, 
+      addtime, pic, readio
+      )
+    values (#{id,jdbcType=INTEGER}, #{msgId,jdbcType=INTEGER}, #{upId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{style,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{docId,jdbcType=INTEGER}, #{readerid,jdbcType=INTEGER}, #{isread,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}, #{readio,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.app.Msg" >
+    insert into mr_u_d_msg_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="msgId != null" >
+        msg_id,
+      </if>
+      <if test="upId != null" >
+        up_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="readerid != null" >
+        readerid,
+      </if>
+      <if test="isread != null" >
+        isread,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="readio != null" >
+        readio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="msgId != null" >
+        #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="upId != null" >
+        #{upId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        #{style,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="readerid != null" >
+        #{readerid,jdbcType=INTEGER},
+      </if>
+      <if test="isread != null" >
+        #{isread,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="readio != null" >
+        #{readio,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.app.MsgQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_u_d_msg_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_u_d_msg_ref
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgId != null" >
+        msg_id = #{record.msgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.upId != null" >
+        up_id = #{record.upId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.style != null" >
+        style = #{record.style,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.docId != null" >
+        doc_id = #{record.docId,jdbcType=INTEGER},
+      </if>
+      <if test="record.readerid != null" >
+        readerid = #{record.readerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isread != null" >
+        isread = #{record.isread,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readio != null" >
+        readio = #{record.readio,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_u_d_msg_ref
+    set id = #{record.id,jdbcType=INTEGER},
+      msg_id = #{record.msgId,jdbcType=INTEGER},
+      up_id = #{record.upId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      style = #{record.style,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      doc_id = #{record.docId,jdbcType=INTEGER},
+      readerid = #{record.readerid,jdbcType=INTEGER},
+      isread = #{record.isread,jdbcType=INTEGER},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      readio = #{record.readio,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.app.Msg" >
+    update mr_u_d_msg_ref
+    <set >
+      <if test="msgId != null" >
+        msg_id = #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="upId != null" >
+        up_id = #{upId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        style = #{style,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="readerid != null" >
+        readerid = #{readerid,jdbcType=INTEGER},
+      </if>
+      <if test="isread != null" >
+        isread = #{isread,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="readio != null" >
+        readio = #{readio,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.app.Msg" >
+    update mr_u_d_msg_ref
+    set msg_id = #{msgId,jdbcType=INTEGER},
+      up_id = #{upId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      style = #{style,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      doc_id = #{docId,jdbcType=INTEGER},
+      readerid = #{readerid,jdbcType=INTEGER},
+      isread = #{isread,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      readio = #{readio,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

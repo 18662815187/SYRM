@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.product.SkuDao" >
+  <resultMap id="BaseResultMap" type="com.lwyykj.core.bean.product.Sku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ph_id" property="phId" jdbcType="INTEGER" />
+    <result column="pro_stand_id" property="proStandId" jdbcType="INTEGER" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="buy_limit" property="buyLimit" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="activity_price" property="activityPrice" jdbcType="DECIMAL" />
+    <result column="is_gift" property="isGift" jdbcType="BIT" />
+    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="is_show" property="isShow" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, ph_id, pro_stand_id, stock, buy_limit, price, activity_price, is_gift, gift_id, 
+      is_del, is_show
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lwyykj.core.bean.product.SkuQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mr_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,ph_id,pro_stand_id,stock,buy_limit,price,activity_price,is_gift,gift_id,is_del,is_show
+    from mr_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectByPidAndUid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from mr_sku
+    where pro_stand_id = #{0} and ph_id= #{1}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mr_sku
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lwyykj.core.bean.product.SkuQuery" >
+    delete from mr_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lwyykj.core.bean.product.Sku" >
+    insert into mr_sku (id, ph_id, pro_stand_id, 
+      stock, buy_limit, price, 
+      activity_price, is_gift, gift_id, 
+      is_del, is_show)
+    values (#{id,jdbcType=INTEGER}, #{phId,jdbcType=INTEGER}, #{proStandId,jdbcType=INTEGER}, 
+      #{stock,jdbcType=INTEGER}, #{buyLimit,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{activityPrice,jdbcType=DECIMAL}, #{isGift,jdbcType=BIT}, #{giftId,jdbcType=INTEGER}, 
+      #{isDel,jdbcType=BIT}, #{isShow,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwyykj.core.bean.product.Sku" >
+    insert into mr_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phId != null" >
+        ph_id,
+      </if>
+      <if test="proStandId != null" >
+        pro_stand_id,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="buyLimit != null" >
+        buy_limit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="activityPrice != null" >
+        activity_price,
+      </if>
+      <if test="isGift != null" >
+        is_gift,
+      </if>
+      <if test="giftId != null" >
+        gift_id,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phId != null" >
+        #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="proStandId != null" >
+        #{proStandId,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="buyLimit != null" >
+        #{buyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPrice != null" >
+        #{activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        #{isGift,jdbcType=BIT},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lwyykj.core.bean.product.SkuQuery" resultType="java.lang.Integer" >
+    select count(*) from mr_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mr_sku
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phId != null" >
+        ph_id = #{record.phId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proStandId != null" >
+        pro_stand_id = #{record.proStandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyLimit != null" >
+        buy_limit = #{record.buyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.activityPrice != null" >
+        activity_price = #{record.activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isGift != null" >
+        is_gift = #{record.isGift,jdbcType=BIT},
+      </if>
+      <if test="record.giftId != null" >
+        gift_id = #{record.giftId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=BIT},
+      </if>
+      <if test="record.isShow != null" >
+        is_show = #{record.isShow,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mr_sku
+    set id = #{record.id,jdbcType=INTEGER},
+      ph_id = #{record.phId,jdbcType=INTEGER},
+      pro_stand_id = #{record.proStandId,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      buy_limit = #{record.buyLimit,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      activity_price = #{record.activityPrice,jdbcType=DECIMAL},
+      is_gift = #{record.isGift,jdbcType=BIT},
+      gift_id = #{record.giftId,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=BIT},
+      is_show = #{record.isShow,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwyykj.core.bean.product.Sku" >
+    update mr_sku
+    <set >
+      <if test="phId != null" >
+        ph_id = #{phId,jdbcType=INTEGER},
+      </if>
+      <if test="proStandId != null" >
+        pro_stand_id = #{proStandId,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="buyLimit != null" >
+        buy_limit = #{buyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPrice != null" >
+        activity_price = #{activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        is_gift = #{isGift,jdbcType=BIT},
+      </if>
+      <if test="giftId != null" >
+        gift_id = #{giftId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwyykj.core.bean.product.Sku" >
+    update mr_sku
+    set ph_id = #{phId,jdbcType=INTEGER},
+      pro_stand_id = #{proStandId,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      buy_limit = #{buyLimit,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      activity_price = #{activityPrice,jdbcType=DECIMAL},
+      is_gift = #{isGift,jdbcType=BIT},
+      gift_id = #{giftId,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

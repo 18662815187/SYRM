@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwyykj.core.dao.report.OrderReportDao">
+	<resultMap id="BaseResultMap" type="com.lwyykj.core.bean.report.OrderReport">
+		<result column="money" property="money" jdbcType="DECIMAL" />
+		<result column="num" property="num" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="pro_id" property="proId" jdbcType="INTEGER" />
+		<result column="ph_id" property="phId" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		<if test="fields == null">
+			money, num, order_id, pro_id, ph_id, add_time
+		</if>
+		<if test="fields != null">
+			${fields}
+		</if>
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.lwyykj.core.bean.report.OrderReportQuery">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from ph_pro_stand_order_report
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="startRow != null">
+			limit #{startRow} , #{pageSize}
+		</if>
+	</select>
+	<select id="sumNum" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT  COALESCE(SUM(num),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0} AND pro_id
+		=#{1}
+	</select>
+	<select id="sunNum" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT  COALESCE(SUM(num),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0} AND pro_id=#{1} AND add_time BETWEEN #{2} and #{3}
+	</select>
+	<select id="sumMoney" parameterType="java.lang.Integer"
+		resultType="java.math.BigDecimal">
+		SELECT  COALESCE(SUM(money),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0} AND pro_id
+		=#{1}
+	</select>
+	<select id="sunMoney" parameterType="java.lang.Integer"
+		resultType="java.math.BigDecimal">
+		SELECT  COALESCE(SUM(money),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0} AND pro_id
+		=#{1} AND add_time BETWEEN #{2} and #{3}
+	</select>
+	<select id="sumAllMoney" parameterType="java.lang.Integer"
+		resultType="java.math.BigDecimal">
+		SELECT  COALESCE(SUM(money),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0} AND add_time BETWEEN #{1} and #{2}
+	</select>
+	<select id="sunAllMoney" parameterType="java.lang.Integer"
+		resultType="java.math.BigDecimal">
+		SELECT  COALESCE(SUM(money),0) FROM ph_pro_stand_order_report WHERE
+		ph_id=#{0}
+	</select>
+	<delete id="deleteByExample" parameterType="com.lwyykj.core.bean.report.OrderReportQuery">
+		delete from ph_pro_stand_order_report
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.lwyykj.core.bean.report.OrderReport">
+		insert into
+		ph_pro_stand_order_report (money, num, order_id,
+		pro_id, ph_id,
+		add_time
+		)
+		values (#{money,jdbcType=DECIMAL}, #{num,jdbcType=INTEGER},
+		#{orderId,jdbcType=INTEGER},
+		#{proId,jdbcType=INTEGER},
+		#{phId,jdbcType=INTEGER}, #{addTime,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.lwyykj.core.bean.report.OrderReport">
+		insert into ph_pro_stand_order_report
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="money != null">
+				money,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="proId != null">
+				pro_id,
+			</if>
+			<if test="phId != null">
+				ph_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="money != null">
+				#{money,jdbcType=DECIMAL},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="proId != null">
+				#{proId,jdbcType=INTEGER},
+			</if>
+			<if test="phId != null">
+				#{phId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.lwyykj.core.bean.report.OrderReportQuery"
+		resultType="java.lang.Integer">
+		select count(*) from ph_pro_stand_order_report
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update ph_pro_stand_order_report
+		<set>
+			<if test="record.money != null">
+				money = #{record.money,jdbcType=DECIMAL},
+			</if>
+			<if test="record.num != null">
+				num = #{record.num,jdbcType=INTEGER},
+			</if>
+			<if test="record.orderId != null">
+				order_id = #{record.orderId,jdbcType=INTEGER},
+			</if>
+			<if test="record.proId != null">
+				pro_id = #{record.proId,jdbcType=INTEGER},
+			</if>
+			<if test="record.phId != null">
+				ph_id = #{record.phId,jdbcType=INTEGER},
+			</if>
+			<if test="record.addTime != null">
+				add_time = #{record.addTime,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update ph_pro_stand_order_report
+		set money =
+		#{record.money,jdbcType=DECIMAL},
+		num = #{record.num,jdbcType=INTEGER},
+		order_id = #{record.orderId,jdbcType=INTEGER},
+		pro_id =
+		#{record.proId,jdbcType=INTEGER},
+		ph_id =
+		#{record.phId,jdbcType=INTEGER},
+		add_time =
+		#{record.addTime,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	
+</mapper>
